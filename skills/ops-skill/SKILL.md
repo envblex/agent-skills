@@ -264,6 +264,49 @@ Use the package manager implied by the lockfile:
 
 Prefer `pnpm` only when the repository uses pnpm.
 
+## Git completion gate
+
+Run this gate after verification and before any final completion report for ops
+work. Do not report ops work as complete until the Git state, push state, and
+pull request state are known and reported.
+
+Run:
+
+```
+git status -sb
+git branch --show-current
+git log --show-signature -1
+```
+
+Interpret `git status -sb` as follows:
+
+* `ahead` or `ahead N` means local commits have not been pushed to the upstream
+  branch yet.
+* `M`, `A`, `D`, `R`, or similar tracked-file markers mean tracked files have
+  uncommitted changes.
+* `??` means untracked files exist. List them and classify each one before
+  committing. Commit only untracked files that are clearly part of the requested
+  ops patch.
+
+If `git branch --show-current` returns `main`, do not commit or push. Move the
+work to a feature branch or stop and ask the user for guidance.
+
+Forbidden during completion:
+
+* do not commit unrelated untracked files
+* do not push directly to `main`
+* do not manually trigger production deployment
+* do not run local production deployment commands
+
+The final ops completion report must state:
+
+* current branch
+* whether the worktree is clean or which intentional files remain changed
+* whether local commits are ahead of the upstream branch
+* whether changes have been pushed
+* whether a pull request exists, with the PR number or URL when known
+* whether production deployment was left to GitHub Actions after merge
+
 ## Required documents
 
 Create or update:
