@@ -1,0 +1,4 @@
+interface:
+  display_name: "Explain Skill"
+  short_description: "Explain specs, READMEs, code, errors, logs, and diffs"
+  default_prompt: "Use $explain-skill to explain this spec, README, code, error, log, or diff in practical terms."

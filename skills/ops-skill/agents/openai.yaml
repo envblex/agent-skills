@@ -1,0 +1,3 @@
+name: ops-skill
+description: Prepare infrastructure, Cloudflare resources, GitHub Secrets documentation, and GitHub Actions deployment setup without bypassing protected production rules.
+instructions: ./SKILL.md

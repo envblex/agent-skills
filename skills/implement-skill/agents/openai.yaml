@@ -1,0 +1,4 @@
+interface:
+  display_name: "Implement Skill"
+  short_description: "Implement only the approved current scope"
+  default_prompt: "Use $implement-skill to implement the current scope from SPEC.md and verify it."

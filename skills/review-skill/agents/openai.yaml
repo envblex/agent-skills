@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review Skill"
+  short_description: "Check implementation against project docs"
+  default_prompt: "Use $review-skill to review whether the implementation follows SPEC.md, TODO.md, README.md, and AGENT.md."

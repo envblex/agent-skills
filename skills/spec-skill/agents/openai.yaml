@@ -1,0 +1,4 @@
+interface:
+  display_name: "Spec Skill"
+  short_description: "Notion memo to focused implementation spec"
+  default_prompt: "Use $spec-skill to turn my rough Notion memo into SPEC.md, TODO.md, README.md, and AGENT.md."

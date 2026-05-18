@@ -1,0 +1,4 @@
+interface:
+  display_name: "Refine Skill"
+  short_description: "Turn rough fix notes into patch requests"
+  default_prompt: "Use $refine-skill to turn my rough fix memo into PATCH_REQUEST.md."
