@@ -63,6 +63,10 @@ Current repository validation is by inspection only because there is no package 
 
 When a Node.js project is added, use the package manager implied by the lockfile and run only scripts that exist in `package.json`.
 
+Before reporting ops work complete, run the `ops-skill` Git completion gate and
+report branch, worktree, push, and pull request state. Production deployment
+must still be left to GitHub Actions after merge to `main`.
+
 ## Rollback notes
 
 Rollback depends on the future deployment target. For GitHub Actions based production deployments, prefer reverting the merged pull request and letting the `main` deployment workflow redeploy the reverted state.
