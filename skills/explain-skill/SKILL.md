@@ -1,7 +1,8 @@
 ---
 name: explain-skill
 description: Explain SPEC.md, README.md, source code, errors, logs, or diffs in practical terms for the project owner. Use this when the user wants to understand purpose, important points, risks, inconsistencies, or next inspection targets. Do not translate entire files, modify files, or propose large implementation plans unless explicitly requested.
-category: Envblex
+metadata:
+  author: Envblex
 ---
 
 # Explain Skill

@@ -1,101 +1,217 @@
-# AGENT: nodejs-fullstack-webapp
+# AGENT
 
-## Stack
+This file defines additional rules for Node.js fullstack web applications.
 
-Use this stack unless `SPEC.md` explicitly says otherwise:
+It extends the base `AGENT.md` template. These rules must not weaken the base rules.
 
-- Node.js
-- TypeScript
-- pnpm
-- React Router / Remix-style full-stack app
-- Cloudflare Workers runtime
-- Tailwind CSS
-- API routes under `/api`
+## Project Type
 
-## Project Rules
+This project is a Node.js TypeScript fullstack web application.
 
-- Use Cloudflare Workers as the deployment/runtime target.
-- Do not introduce a Node-only server runtime unless `SPEC.md` requires it.
-- Keep browser code and server-only code separated.
-- Keep API behavior explicit and documented.
-- Keep UI changes limited to the current scope.
-- Do not add authentication, database, analytics, queues, background jobs, or external services unless `SPEC.md` requires them.
-- Do not add large UI libraries unless the project already uses them or `SPEC.md` requires them.
+A fullstack web application may include:
 
-## Routing Rules
+- browser UI
+- server-side routes or API handlers
+- shared validation/schema code
+- build and deployment configuration
 
-- Use React Router / Remix-style route conventions already present in the project.
-- Keep user-facing pages and API handlers separated.
-- Put API endpoints under `/api` when the project structure supports it.
-- Do not change existing route URLs unless required by `SPEC.md`.
+Do not add these parts unless they are required by the approved scope.
 
-## API Rules
+## Required Reading
 
-- Validate request input at the boundary.
-- Return consistent JSON responses for API endpoints.
-- Use proper HTTP status codes.
-- Avoid leaking stack traces or internal errors to clients.
-- Do not change response shapes unless required by `SPEC.md`.
+Before working, read:
 
-## UI Rules
+- `SPEC.md`
+- `TODO.md`
+- `README.md`
+- `AGENT.md`
 
-- Prefer simple, accessible UI over decorative complexity.
-- Use existing components and styling patterns before creating new ones.
-- Keep Tailwind classes readable.
-- Do not implement optional polish outside the current scope.
-- Do not introduce animations unless required by `SPEC.md`.
+If `PATCH_REQUEST.md` exists, read it first and treat it as the current patch scope.
 
-## Cloudflare Rules
+## Language
 
-- Keep Worker-compatible code.
-- Avoid Node-specific APIs that are unavailable in Cloudflare Workers.
-- Do not add secrets to source files.
-- Use environment bindings only when required by `SPEC.md`.
-- Update `wrangler.toml` only when runtime configuration actually changes.
+Use TypeScript.
 
-## README Update Triggers
+Rules:
 
-Update `README.md` when changing:
+- Prefer `.ts` and `.tsx`.
+- Do not introduce `.js` unless required by the framework or build system.
+- Keep type checking enabled.
+- Do not weaken TypeScript strictness without explicit approval.
 
-- setup commands
-- dev/build/deploy commands
-- environment variables
-- routes
-- API endpoints
-- configuration
-- runtime assumptions
-- user-visible behavior
+## Package Manager
+
+Use pnpm only.
+
+Forbidden:
+
+- `npm install`
+- `yarn`
+- `bun install`
+- `package-lock.json`
+- `yarn.lock`
+- `bun.lockb`
+
+Allowed:
+
+- `pnpm install`
+- `pnpm add <package>`
+- `pnpm add -D <package>`
+- `pnpm run <script>`
+
+## Source Layout
+
+Prefer a small layout.
+
+Example:
+
+```txt
+src/
+  ...
+public/
+  ...
+tests/
+  ...
+package.json
+tsconfig.json
+README.md
+SPEC.md
+TODO.md
+AGENT.md
+```
+
+Framework-specific layouts are allowed only when the chosen framework requires them.
+
+Do not create unnecessary layers.
+
+Avoid premature directories such as:
+
+- `services/`
+- `repositories/`
+- `providers/`
+- `plugins/`
+- `adapters/`
+- `domain/`
+- `infrastructure/`
+
+unless the implementation actually needs them.
+
+## Frontend Rules
+
+The frontend must:
+
+- implement only approved screens and flows
+- keep UI state simple
+- validate user input before submission when practical
+- avoid unnecessary client-side persistence
+- avoid analytics or tracking unless explicitly approved
+- avoid hidden network requests
+- avoid large UI dependencies unless justified by scope
+
+Do not add:
+
+- account UI
+- dashboards
+- settings pages
+- billing UI
+- onboarding flows
+- admin screens
+
+unless explicitly required by the current scope.
+
+## Backend Rules
+
+The backend must:
+
+- validate request input
+- return predictable status codes
+- avoid leaking internal errors
+- avoid logging secrets
+- document implemented endpoints
+- keep server behavior aligned with `SPEC.md`
+
+Do not add:
+
+- authentication
+- database integration
+- queues
+- background jobs
+- caching
+- rate limiting
+- webhooks
+- admin APIs
+
+unless explicitly required by the current scope.
+
+## Dependency Rules
+
+Add dependencies only when needed by the approved scope.
+
+Do not add dependencies for hypothetical future features.
+
+Avoid heavy frameworks or libraries when the project only needs a small implementation.
+
+## Security Rules
+
+Do not:
+
+- store secrets in tracked files
+- print secrets in logs
+- expose stack traces in production responses
+- add permissive CORS by default
+- add authentication bypasses
+- add unused environment variables
+- add hidden external network calls
+- collect telemetry unless explicitly approved
+- store sensitive user data unless explicitly approved
+
+## Environment Variables
+
+Use `.env.example` for variable names only.
+
+`.env.example` must not contain real secrets.
+
+Document required variables in `README.md`.
 
 ## Verification
 
-Run available commands, usually:
+Before claiming completion, run available commands.
+
+Expected commands:
 
 ```bash
-pnpm install
-pnpm check
-pnpm build
+pnpm run format
+pnpm run lint
+pnpm run typecheck
+pnpm run build
 pnpm test
 ```
 
-If the project uses different scripts, inspect package.json and run the relevant ones.
+If a command does not exist, report that clearly.
 
-At minimum, check:
+## Deployment Rules
 
-```bash
-pnpm lint
-pnpm typecheck
-pnpm build
-```
+Follow the base deployment policy.
 
-when those scripts exist.
+Default policy:
 
-Common Failure Points
+- production deployment must run through GitHub Actions from `main`
+- agents must not deploy from local machines
+- agents must not create or rotate deploy credentials
+- secrets must be stored in GitHub Secrets or the approved secret manager
 
-Watch for:
+Do not add deployment configuration unless deployment is in the approved scope.
 
-- code that works in Node.js but not Cloudflare Workers
-- server-only code imported into client bundles
-- client code importing secrets or environment bindings
-- API response shape drift
-- README documenting routes or commands that do not exist
-- Tailwind/config changes unrelated to the current scope
+## Git Rules
+
+Follow the base Git authority model.
+
+Do not:
+
+- commit on `main`
+- push to `main`
+- force-push
+- merge pull requests
+- create or edit secrets
+- change repository settings
+- deploy locally
