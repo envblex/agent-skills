@@ -1,7 +1,8 @@
 ---
 name: review-skill
 description: Review an implementation against SPEC.md, TODO.md, README.md, and AGENT.md. Use when the user wants an AI agent to verify that code matches the approved current scope, avoids TODO/Later work, keeps README.md accurate, and passes available build/check/test commands. Report findings only. Do not edit files or propose new features.
-category: Envblex
+metadata:
+  author: Envblex
 ---
 
 # Review Skill

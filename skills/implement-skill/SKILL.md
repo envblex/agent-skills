@@ -1,7 +1,8 @@
 ---
 name: implement-skill
 description: Implement the approved current scope from SPEC.md. Use when the user wants an AI agent to read SPEC.md, TODO.md, README.md, and AGENT.md; inspect the codebase; edit only the code needed for the current scope; run available verification commands; update README.md when behavior changes; and commit the completed work.
-category: Envblex
+metadata:
+  author: Envblex
 ---
 
 # Implement Skill

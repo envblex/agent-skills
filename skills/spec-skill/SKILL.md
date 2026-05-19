@@ -1,7 +1,8 @@
 ---
 name: spec-skill
 description: Convert rough Notion-style product or implementation notes into focused project documents. Use when the user provides messy notes, ideas, requirements, or planning text and wants SPEC.md, TODO.md, README.md, and AGENT.md generated for later implementation by an AI agent. Keep v0.1.0 small, define non-goals and completion criteria, and move deferred work into TODO.md. Do not edit application code.
-category: Envblex
+metadata:
+  author: Envblex
 ---
 
 # Spec Skill
