@@ -1,11 +1,3 @@
-mkdir -p skills/bootstrap-skill
-
-cat > skills/bootstrap-skill/SKILL.md <<'EOF'
----
-name: bootstrap-skill
-description: Initialize or normalize a repository before implementation by establishing Git baseline, project documents, task structure, scripts, conventions, and repo-specific operating rules.
----
-
 # Bootstrap Skill
 
 Initialize or normalize a repository before implementation.
